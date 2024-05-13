@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form');
+    const form = document.getElementById('contact-form');
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -11,31 +11,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (name === '' || email === '' || message === '') {
             alert('Please fill in all required fields.');
+            return;
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             alert('Invalid email address.');
+            return;
         } else if (message.length < 1) {
             alert('Message is too short.');
+            return;
         } else if (message.length > 1000) {
             alert('Message is too long.');
-        } else {
-            fetch('contact.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: `name=${encodeURIComponent(name)}&email=${encodeURIComponent(email)}&subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`,
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert(data.success);
-                } else {
-                    alert(data.error);
-                }
-            })
-            .catch((error) => {
-                console.error('Error:', error);
-            });
+            return;
         }
+
+        fetch('https://formspree.io/f/mpzvnjgq', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                subject: subject,
+                message: message,
+            }),
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Message sent successfully!');
+                form.reset();
+            } else {
+                alert('Failed to send the message.');
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('An error occurred. Please try again later.');
+        });
     });
 });
