@@ -2682,3 +2682,40 @@ input, select, textarea {
 			}
 
 	}
+
+.additional header {
+background-color: #f0f0f0; /* optional */
+padding: 1rem; /* optional */
+text-align: center; /* centers the tabs horizontally */
+border-bottom: 1px solid #ccc; /* adds a bottom border */
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* adds a subtle shadow effect */
+}
+
+.additional nav ul {
+list-style: none;
+margin: 0;
+padding: 0;
+display: flex; /* makes the tabs display inline */
+justify-content: space-between; /* evenly spaces the tabs */
+}
+
+.additional nav li {
+margin-right: 20px; /* adds space between tabs */
+border-bottom: 2px solid transparent; /* adds a transparent border for hover effect */
+}
+
+.additional nav a {
+color: #333; /* optional */
+text-decoration: none; /* removes underline */
+transition: color 0.2s ease; /* adds a smooth transition effect */
+}
+
+.additional nav a:hover {
+color: #f17751; /* optional, changes color on hover */
+border-bottom: 2px solid #666; /* adds a bottom border on hover */
+}
+
+.additional nav li.active a {
+color: #180606; /* optional, changes color for active tab */
+border-bottom: 2px solid #666; /* adds a bottom border for active tab */
+}
